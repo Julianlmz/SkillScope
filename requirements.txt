@@ -1,0 +1,13 @@
+requests
+beautifulsoup4
+playwright
+pandas
+duckdb
+spacy
+mcp
+streamlit
+plotly
+python-dotenv
+pyyaml
+apscheduler
+lxml
