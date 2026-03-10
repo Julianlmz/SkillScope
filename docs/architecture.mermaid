@@ -1,0 +1,43 @@
+---
+title: SkillScope — Arquitectura del Pipeline ETL
+---
+
+flowchart TD
+    subgraph INPUT["📦 Fuente de Datos"]
+        A1["linkedin_job_postings.csv\n1,348,454 registros"]
+        A2["job_skills.csv\n1,296,381 registros"]
+    end
+
+    subgraph EXTRACT["1️⃣  EXTRACT — src/ingestion/extract.py"]
+        B1["extract_jobs()"]
+        B2["extract_skills()"]
+    end
+
+    subgraph TRANSFORM["2️⃣  TRANSFORM — src/transformation/clean_jobs.py"]
+        C1["Filtrar US\n1,149,342 registros"]
+        C2["Convertir fechas\nagregar columna week"]
+        C3["Limpiar texto\neliminar duplicados"]
+        C4["Explotar skills\n23,180,623 relaciones"]
+    end
+
+    subgraph LOAD["3️⃣  LOAD — src/utils/db.py"]
+        D1["DuckDB\njobs.duckdb"]
+        D2["Tabla: jobs\n1,149,342 filas"]
+        D3["Tabla: job_skills\n23,180,623 filas"]
+    end
+
+    subgraph ORCHESTRATION["⚙️  Orquestación"]
+        E1["src/pipeline/main.py\n--mode=full/extract/transform/load"]
+        E2["Makefile\nmake run-full"]
+    end
+
+    A1 --> B1
+    A2 --> B2
+    B1 --> C1
+    B2 --> C4
+    C1 --> C2 --> C3
+    C3 --> D2
+    C4 --> D3
+    D2 --> D1
+    D3 --> D1
+    E2 --> E1 --> EXTRACT
