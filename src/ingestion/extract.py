@@ -27,7 +27,7 @@ def extract_jobs(raw_dir: Path = DATA_RAW) -> pd.DataFrame:
     """Carga linkedin_job_postings.csv y retorna un DataFrame."""
     path = raw_dir / "linkedin_job_postings.csv"
     logger.info(f"Leyendo jobs desde: {path}")
-    df = pd.read_csv(path, usecols=JOBS_COLS, dtype=str)
+    df = pd.read_csv(path, usecols=JOBS_COLS, dtype=str, engine='python', on_bad_lines='warn')
     logger.info(f"Jobs cargados: {len(df):,} registros")
     return df
 
