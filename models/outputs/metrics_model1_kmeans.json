@@ -1,0 +1,16 @@
+{
+  "modelo": "K-Means - Agrupador de habilidades por perfil",
+  "k_clusters": 6,
+  "inertia": 351368.74,
+  "silhouette_score": 0.0457,
+  "distribucion": {
+    "cluster_0": 24086,
+    "cluster_1": 3845,
+    "cluster_2": 2864,
+    "cluster_3": 6962,
+    "cluster_4": 4721,
+    "cluster_5": 4075
+  },
+  "total_ofertas": 46553,
+  "total_skills": 1038
+}
